@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopping_app/providers/cart.dart';
 import 'package:shopping_app/providers/products.dart';
+import 'package:shopping_app/providers/orders.dart';
 import 'package:shopping_app/screens/cart_screen.dart';
+import 'package:shopping_app/screens/orders_screen.dart';
 import 'package:shopping_app/screens/product_details_screen.dart';
 import 'package:shopping_app/screens/product_overview_screen.dart';
 
@@ -16,12 +18,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider.value(
-          value: Products(),
+        ChangeNotifierProvider(
+          create: (ctx) => Products(),
         ),
-        ChangeNotifierProvider.value(
-          value: Cart(),
+        ChangeNotifierProvider(
+          create: (ctx) => Cart(),
         ),
+        ChangeNotifierProvider(
+          create: (ctx) => Orders(),
+        )
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -43,10 +48,12 @@ class MyApp extends StatelessWidget {
           // closer together (more dense) than on mobile platforms.
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: ProductOverviewScreen(),
+//        home: ProductOverviewScreen(),
         routes: {
+          ProductOverviewScreen.routeName: (ctx) => ProductOverviewScreen(),
           ProductDetailsScreen.routeName: (ctx) => ProductDetailsScreen(),
           CartScreen.routeName: (ctx) => CartScreen(),
+          OrdersScreen.routeName: (ctx) => OrdersScreen(),
         },
       ),
     );
